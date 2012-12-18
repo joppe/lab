@@ -41,6 +41,8 @@ var Stage = (function (win) {
             (function drawFrame() {
                 requestAnimationFrame(drawFrame, self.canvas);
 
+                context.clearRect(0, 0, self.width, self.height);
+
                 self.shapes.forEach(function (shape) {
                     shape.draw(context);
                 });

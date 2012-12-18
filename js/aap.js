@@ -46,6 +46,24 @@ var Aap = (function (win) {
                 function (callback) {
                     win.setTimeout(callback, 1000 / 60);
                 };
+        },
+
+        extend: function (destination) {
+            var sources = Array.prototype.slice.call(arguments, 1);
+
+            sources.forEach(function (source) {
+                var prop;
+
+                if (source) {
+                    for (prop in source) {
+                        if (source.hasOwnProperty(prop)) {
+                            destination[prop] = source[prop];
+                        }
+                    }
+                }
+            });
+
+            return destination;
         }
     };
 }(this));
