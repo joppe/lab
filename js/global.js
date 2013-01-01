@@ -1,10 +1,10 @@
-/*global Aap, Stage, window, Ball, Point, MovingBall, Vector*/
+/*global Aap, window*/
 
 Aap.ready(function () {
     'use strict';
 
-    var stage = new Stage(window.document.body, 600, 600);
-    stage.addShape(new MovingBall(new Ball(new Point(100, 100), 10), new Vector(2, 30)));
+    var stage = new Aap.Canvas.Stage(window.document.body, 800, 800);
+    stage.addShape(new MovingBall(new Aap.Canvas.Shape.Ball(new Aap.Geometry.Point(100, 100), 10), new Aap.Physics.Velocity(2, 30)));
     stage.play();
-    Aap.log('foo');
+//    Aap.log('foo');
 });

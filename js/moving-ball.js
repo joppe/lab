@@ -11,6 +11,7 @@ var MovingBall = (function () {
     };
     MovingBall.prototype = {
         draw: function (context) {
+            this.velocity.applyFriction(0.01);
             this.ball.position.x += this.velocity.getX();
             this.ball.position.y += this.velocity.getY();
 

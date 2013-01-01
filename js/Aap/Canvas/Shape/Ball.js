@@ -1,6 +1,8 @@
-/*global Aap*/
+/*global Aap, Shape*/
 
-var Ball = (function () {
+Aap.createNamespace('Aap.Canvas.Shape');
+
+Aap.Canvas.Shape.Ball = (function () {
     'use strict';
 
     var Ball,
@@ -10,12 +12,22 @@ var Ball = (function () {
             strokeStyle: '#0000ff'
         };
 
-    Ball = function (position, radius, options) {
-        this.position = position;
-        this.radius = radius;
-        this.options = Aap.extend({}, defaultOptions, options);
-    };
-    Ball.prototype = {
+    Ball = Aap.Class({
+        /**
+         * @constructor
+         * @param {Point} position
+         * @param {Number} radius
+         * @param {Object} options
+         */
+        initialize: function (position, radius, options) {
+            this.position = position;
+            this.radius = radius;
+            this.options = Aap.extend({}, defaultOptions, options);
+        },
+
+        /**
+         * @param {Object} context
+         */
         draw: function (context) {
             context.save();
             context.lineWidth = this.options.lineWidth;
@@ -30,7 +42,7 @@ var Ball = (function () {
             context.stroke();
             context.restore();
         }
-    };
+    }, Aap.Canvas.Shape.Abstract);
 
     return Ball;
 }());
