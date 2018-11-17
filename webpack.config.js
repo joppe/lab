@@ -55,7 +55,10 @@ const config = {
     },
     resolve: {
         alias: {
-            app: path.resolve(__dirname, 'src')
+            '@app': path.resolve(__dirname, 'src/app'),
+            '@common': path.resolve(__dirname, 'src/common'),
+            '@lang': path.resolve(__dirname, 'src/lang'),
+            '@lib': path.resolve(__dirname, 'src/lib')
         },
         extensions: ['.tsx', '.ts', '.js']
     },
