@@ -1,8 +1,8 @@
-import { Container } from '@lib/dependency-injection/Container';
+import { Container as DIContainer } from '@lib/dependency-injection/Container';
 
 describe('Container', (): void => {
     it('register a dependency', (): void => {
-        const container: Container = new Container();
+        const container: DIContainer = new DIContainer();
 
         container.register<number>(
             'a',
@@ -15,7 +15,7 @@ describe('Container', (): void => {
     });
 
     it('tell if a dependency exists', (): void => {
-        const container: Container = new Container();
+        const container: DIContainer = new DIContainer();
 
         container.register<number>(
             'a',
@@ -29,7 +29,7 @@ describe('Container', (): void => {
     });
 
     it('resolve a dependency that has no other dependencies', (): void => {
-        const container: Container = new Container();
+        const container: DIContainer = new DIContainer();
 
         container.register<number>(
             'a',
@@ -42,7 +42,7 @@ describe('Container', (): void => {
     });
 
     it('resolve a dependency that has no other dependencies', (): void => {
-        const container: Container = new Container();
+        const container: DIContainer = new DIContainer();
 
         container.register<number>(
             'a',

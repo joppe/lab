@@ -10,7 +10,7 @@ describe('Definition', (): void => {
             }
         );
 
-        expect(d.argumentNames).toEqual(['a', 'b']);
+        expect(d.requiredDependencies).toEqual(['a', 'b']);
     });
 
     it('is initially not invoked', (): void => {
@@ -22,7 +22,7 @@ describe('Definition', (): void => {
             }
         );
 
-        expect(d.argumentNames).toEqual([]);
+        expect(d.requiredDependencies).toEqual([]);
         expect(d.isInvoked).toEqual(false);
     });
 
@@ -35,9 +35,9 @@ describe('Definition', (): void => {
             }
         );
 
-        d.setArgumentValue('a', 100);
+        d.setDependency('a', 100);
 
-        expect(d.getArgumentValue('a')).toEqual(100);
+        expect(d.getDependency('a')).toEqual(100);
     });
 
     it('throw an error when getting a argument that is not set', (): void => {
@@ -50,11 +50,11 @@ describe('Definition', (): void => {
         );
 
         expect((): void => {
-            d.getArgumentValue('a');
+            d.getDependency('a');
         }).toThrow();
     });
 
-    it('check if an arguments value is defined', (): void => {
+    it('check if an requiredDependencies value is defined', (): void => {
         const d: Definition<number> = new Definition(
             'add',
             // tslint:disable-next-line typedef
@@ -63,11 +63,11 @@ describe('Definition', (): void => {
             }
         );
 
-        expect(d.isArgumentDefined('a')).toBe(false);
+        expect(d.isDependencyDefined('a')).toBe(false);
 
-        d.setArgumentValue('a', 2);
+        d.setDependency('a', 2);
 
-        expect(d.isArgumentDefined('a')).toBe(true);
+        expect(d.isDependencyDefined('a')).toBe(true);
     });
 
     it('the wrapped function is called when calling invoke', (): void => {
@@ -79,8 +79,8 @@ describe('Definition', (): void => {
             }
         );
 
-        d.setArgumentValue('a', 2);
-        d.setArgumentValue('b', 23);
+        d.setDependency('a', 2);
+        d.setDependency('b', 23);
 
         const result: number = d.invoke();
 
@@ -98,8 +98,8 @@ describe('Definition', (): void => {
             }
         );
 
-        d.setArgumentValue('a', 2);
-        d.setArgumentValue('b', 23);
+        d.setDependency('a', 2);
+        d.setDependency('b', 23);
 
         const r1: { result: number } = d.invoke();
         const r2: { result: number } = d.invoke();

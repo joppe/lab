@@ -20,7 +20,7 @@ function validate(target, key, descriptor) {
         var metadataKey = `__required_${key}_parameters`;
         var indices = target[metadataKey];
         for (var i = 0; i < args.length; i++) {
-            if (arguments[i] == undefined) {
+            if (requiredDependencies[i] == undefined) {
                 throw 'missing required parameter'
             }
         }

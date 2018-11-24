@@ -4,31 +4,37 @@ import { Definition } from '@lib/dependency-injection/Definition';
 
 export class Container {
     // tslint:disable-next-line no-any
-    private readonly registry: Dictionary<Definition<any>>;
+    private readonly _registry: Dictionary<Definition<any>>;
 
     constructor() {
-        this.registry = {};
+        this._registry = {};
     }
 
-    public register<T>(identifier: string, factory: Factory<T>): void {
-        this.registry[identifier] = new Definition(identifier, factory);
+    public register<T>(identifier: string, factory: Factory<T>, requiredDependencies?: Array<string>): void {
+        this._registry[identifier] = new Definition<T>(identifier, factory, requiredDependencies);
     }
 
     public resolve<T>(identifier: string): T {
-        if (!this.has(identifier)) {
-            throw new Error(`Container,resolve, unknown identifier: "${identifier}"`);
-        }
+        const definition: Definition<T> = this.get(identifier);
 
-        const definition: Definition<T> = this.registry[identifier];
-
-        definition.argumentNames.forEach((argumentName: string): void => {
-            definition.setArgumentValue(argumentName, this.resolve(argumentName));
+        definition.requiredDependencies.forEach((requiredDependency: string): void => {
+            if (!definition.isDependencyDefined(requiredDependency)) {
+                definition.setDependency(requiredDependency, this.resolve(requiredDependency));
+            }
         });
 
         return definition.invoke();
     }
 
     public has(identifier: string): boolean {
-        return this.registry[identifier] !== undefined;
+        return this._registry[identifier] !== undefined;
+    }
+
+    public get<T>(identifier: string): Definition<T> {
+        if (!this.has(identifier)) {
+            throw new Error(`Container,resolve, unknown identifier: "${identifier}"`);
+        }
+
+        return this._registry[identifier];
     }
 }
